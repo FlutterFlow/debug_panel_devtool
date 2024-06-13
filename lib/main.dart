@@ -1,4 +1,5 @@
 import 'package:debug_panel_devtool/listen_event.dart';
+import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +12,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: ListeningForDevToolsEventExample(),
+    return const DevToolsExtension(
+      child: ListeningForDevToolsEventExample(),
     );
   }
 }
