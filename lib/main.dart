@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const DevToolsExtension(
-      child: ListeningForDevToolsEventExample(),
+    return DevToolsExtension(
+      child: LoggingScreenV2(),
     );
   }
 }
