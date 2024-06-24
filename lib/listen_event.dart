@@ -1,36 +1,17 @@
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:async';
 import 'dart:convert';
 
-import 'package:devtools_app_shared/service.dart';
 import 'package:devtools_app_shared/utils.dart';
 import 'package:vm_service/vm_service.dart';
 
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
-Future<String> _retrieveFullStringValue(
-  VmService? service,
-  IsolateRef isolateRef,
-  InstanceRef stringRef,
-) {
-  final fallback = '${stringRef.valueAsString}...';
-
-  return service
-          ?.retrieveFullStringValue(
-            isolateRef.id!,
-            stringRef,
-            onUnavailable: (truncatedValue) => fallback,
-          )
-          .then((value) => value ?? fallback) ??
-      Future.value(fallback);
-}
-
-class LoggingControllerV2 extends DisposableController
+class DebugLoggingController extends DisposableController
     with AutoDisposeControllerMixin {
-  LoggingControllerV2() {
+  DebugLoggingController() {
     addAutoDisposeListener(serviceManager.connectedState, () {
       if (serviceManager.connectedState.value.connected) {
         _handleConnectionStart(serviceManager.service!);
@@ -41,24 +22,7 @@ class LoggingControllerV2 extends DisposableController
     }
   }
 
-  final _logStatusController = StreamController<String>.broadcast();
-
-  /// A stream of events for the textual description of the log contents.
-  ///
-  /// See also [statusText].
-  Stream<String> get onLogStatusChanged => _logStatusController.stream;
-
-  List<LogDataV2> data = <LogDataV2>[];
-
-  final selectedLog = ValueNotifier<LogDataV2?>(null);
-
-  void _updateData(List<LogDataV2> logs) {
-    data = logs;
-  }
-
-  void clear() {
-    _updateData([]);
-  }
+  final data = ListValueNotifier<LogData>([]);
 
   void _handleConnectionStart(VmService service) {
     // Log `dart:developer` `log` events.
@@ -68,96 +32,35 @@ class LoggingControllerV2 extends DisposableController
   }
 
   void _handleDeveloperLogEvent(Event e) {
-    final service = serviceManager.service;
-
     final logRecord = _LogRecord(e.json!['logRecord']);
 
     String? loggerName =
         _valueAsString(InstanceRef.parse(logRecord.loggerName));
-    if (loggerName == null || loggerName.isEmpty) {
-      loggerName = 'log';
+    if (loggerName == 'DebugLogging') {
+      final level = logRecord.level;
+      final messageRef = InstanceRef.parse(logRecord.message)!;
+      String? summary = _valueAsString(messageRef);
+      if (messageRef.valueAsStringIsTruncated == true) {
+        summary = '${summary!}...';
+      }
+
+      final details = summary;
+      const severeIssue = 1000;
+      final isError = level != null && level >= severeIssue ? true : false;
+
+      log(
+        LogData(
+          'DebugLogging',
+          details,
+          e.timestamp,
+          isError: isError,
+          summary: summary,
+        ),
+      );
     }
-    final level = logRecord.level;
-    final messageRef = InstanceRef.parse(logRecord.message)!;
-    String? summary = _valueAsString(messageRef);
-    if (messageRef.valueAsStringIsTruncated == true) {
-      summary = '${summary!}...';
-    }
-    final error = InstanceRef.parse(logRecord.error);
-    final stackTrace = InstanceRef.parse(logRecord.stackTrace);
-
-    final details = summary;
-    Future<String> Function()? detailsComputer;
-
-    // If the message string was truncated by the VM, or the error object or
-    // stackTrace objects were non-null, we need to ask the VM for more
-    // information in order to render the log entry. We do this asynchronously
-    // on-demand using the `detailsComputer` Future.
-    if (messageRef.valueAsStringIsTruncated == true ||
-        _isNotNull(error) ||
-        _isNotNull(stackTrace)) {
-      detailsComputer = () async {
-        // Get the full string value of the message.
-        String result =
-            await _retrieveFullStringValue(service, e.isolate!, messageRef);
-
-        // Get information about the error object. Some users of the
-        // dart:developer log call may pass a data payload in the `error`
-        // field, encoded as a json encoded string, so handle that case.
-        if (_isNotNull(error)) {
-          if (error!.valueAsString != null) {
-            final errorString =
-                await _retrieveFullStringValue(service, e.isolate!, error);
-            result += '\n\n$errorString';
-          } else {
-            // Call `toString()` on the error object and display that.
-            final toStringResult = await service!.invoke(
-              e.isolate!.id!,
-              error.id!,
-              'toString',
-              <String>[],
-              disableBreakpoints: true,
-            );
-
-            if (toStringResult is ErrorRef) {
-              final errorString = _valueAsString(error);
-              result += '\n\n$errorString';
-            } else if (toStringResult is InstanceRef) {
-              final str = await _retrieveFullStringValue(
-                service,
-                e.isolate!,
-                toStringResult,
-              );
-              result += '\n\n$str';
-            }
-          }
-        }
-
-        // Get info about the stackTrace object.
-        if (_isNotNull(stackTrace)) {
-          result += '\n\n${_valueAsString(stackTrace)}';
-        }
-
-        return result;
-      };
-    }
-
-    const severeIssue = 1000;
-    final isError = level != null && level >= severeIssue ? true : false;
-
-    log(
-      LogDataV2(
-        loggerName,
-        details,
-        e.timestamp,
-        isError: isError,
-        summary: summary,
-        detailsComputer: detailsComputer,
-      ),
-    );
   }
 
-  void log(LogDataV2 log) {
+  void log(LogData log) {
     data.add(log);
   }
 }
@@ -172,10 +75,6 @@ extension type _LogRecord(Map<String, dynamic> json) {
   Map<String, Object?> get error => json['error'];
 
   Map<String, Object?> get stackTrace => json['stackTrace'];
-}
-
-bool _isNotNull(InstanceRef? serviceRef) {
-  return serviceRef != null && serviceRef.kind != 'Null';
 }
 
 String? _valueAsString(InstanceRef? ref) {
@@ -195,45 +94,24 @@ String? _valueAsString(InstanceRef? ref) {
 /// A log data object that includes optional summary information about whether
 /// the log entry represents an error entry, the log entry kind, and more
 /// detailed data for the entry.
-///
-/// The details can optionally be loaded lazily on first use. If this is the
-/// case, this log entry will have a non-null `detailsComputer` field. After the
-/// data is calculated, the log entry will be modified to contain the calculated
-/// `details` data.
-class LogDataV2 {
-  LogDataV2(
+class LogData {
+  LogData(
     this.kind,
-    this._details,
+    this.details,
     this.timestamp, {
     this.summary,
     this.isError = false,
-    this.detailsComputer,
   });
 
   final String kind;
   final int? timestamp;
   final bool isError;
   final String? summary;
-
-  String? _details;
-  Future<String> Function()? detailsComputer;
+  final String? details;
 
   static const prettyPrinter = JsonEncoder.withIndent('  ');
 
-  String? get details => _details;
-
-  bool get needsComputing => detailsComputer != null;
-
-  Future<void> compute() async {
-    _details = await detailsComputer!();
-    detailsComputer = null;
-  }
-
   String? prettyPrinted() {
-    if (needsComputing) {
-      return details;
-    }
-
     try {
       return prettyPrinter
           .convert(jsonDecode(details!))
@@ -247,29 +125,31 @@ class LogDataV2 {
   String toString() => 'LogData($kind, $timestamp)';
 }
 
-class LoggingScreenV2 extends StatelessWidget {
-  const LoggingScreenV2({super.key});
+class LoggingScreen extends StatelessWidget {
+  const LoggingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (context) => LoggingControllerV2(),
-      child: const LoggingScreenBodyV2(),
+      create: (context) => DebugLoggingController(),
+      child: const LoggingScreenBody(),
     );
   }
 }
 
-class LoggingScreenBodyV2 extends StatefulWidget {
-  const LoggingScreenBodyV2({super.key});
+class LoggingScreenBody extends StatefulWidget {
+  const LoggingScreenBody({super.key});
 
   @override
-  State<LoggingScreenBodyV2> createState() => _LoggingScreenBodyV2State();
+  State<LoggingScreenBody> createState() => _LoggingScreenBodyState();
 }
 
-class _LoggingScreenBodyV2State extends State<LoggingScreenBodyV2>
-    with AutoDisposeMixin {
+class _LoggingScreenBodyState extends State<LoggingScreenBody>
+    with
+        AutoDisposeMixin,
+        ProvidedControllerMixin<DebugLoggingController, LoggingScreenBody> {
   List<String> items = [];
-  late List<LogDataV2> filteredLogs;
+  late List<LogData> logs;
   @override
   void initState() {
     super.initState();
@@ -278,14 +158,20 @@ class _LoggingScreenBodyV2State extends State<LoggingScreenBodyV2>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    if (!initController()) return;
+
+    cancelListeners();
+    logs = controller.data.value;
+    addAutoDisposeListener(controller.data, () {
+      setState(() {
+        logs = controller.data.value;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<LoggingControllerV2>(context);
-    filteredLogs = controller.data;
-
-    return LogsTableV2(filteredLogs);
+    return LogsTableV2(logs);
   }
 }
 
@@ -293,7 +179,7 @@ class LogsTableV2 extends StatelessWidget {
   LogsTableV2(this.filteredLogs, {super.key});
 
   final _verticalController = ScrollController();
-  final List<LogDataV2> filteredLogs;
+  final List<LogData> filteredLogs;
 
   @override
   Widget build(BuildContext context) {
@@ -319,5 +205,52 @@ class LogsTableV2 extends StatelessWidget {
 
   double _calculateRowHeight(int index, SliverLayoutDimensions dimensions) {
     return 15.0;
+  }
+}
+
+typedef ProvidedControllerCallback<T> = void Function(T);
+
+mixin ProvidedControllerMixin<T, V extends StatefulWidget> on State<V> {
+  T get controller => _controller!;
+
+  T? _controller;
+
+  final _callWhenReady = <ProvidedControllerCallback>[];
+
+  /// Calls the provided [callback] once [_controller] has been initialized.
+  ///
+  /// The [callback] will be called immediately if [_controller] has already
+  /// been initialized.
+  void callWhenControllerReady(ProvidedControllerCallback callback) {
+    if (_controller != null) {
+      callback(_controller!);
+    } else {
+      _callWhenReady.add(callback);
+    }
+  }
+
+  /// Initializes [_controller] from package:provider.
+  ///
+  /// This method should be called in [didChangeDependencies]. Returns whether
+  /// or not a new controller was provided upon subsequent calls to
+  /// [initController].
+  ///
+  /// This method will commonly be used to return early from
+  /// [didChangeDependencies] when initialization code should not be run again
+  /// if the provided controller has not changed.
+  ///
+  /// E.g. `if (!initController()) return;`
+  bool initController() {
+    final newController = Provider.of<T>(context);
+    if (newController == _controller) return false;
+    final firstInitialization = _controller == null;
+    _controller = newController;
+    if (firstInitialization) {
+      for (final callback in _callWhenReady) {
+        callback(_controller!);
+      }
+      _callWhenReady.clear();
+    }
+    return true;
   }
 }

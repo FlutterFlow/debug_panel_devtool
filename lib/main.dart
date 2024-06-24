@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevToolsExtension(
-      child: LoggingScreenV2(),
+      child: LoggingScreen(),
     );
   }
 }
