@@ -1,16 +1,14 @@
-# debug_panel_devtool
+# Debug Panel DevTools Extension
 
-A new Flutter project.
+This extension displays debugging data exclusively from FlutterFlow apps in Local Run mode.
 
-## Getting Started
+## Licensing
 
-This project is a starting point for a Flutter application.
+### Code License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-A few resources to get you started if this is your first Flutter project:
+### Asset License
+The custom icons and fonts included in this project are licensed under the FlutterFlow Custom Icons License. See the [LICENSE](LICENSE) section for details.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Asset Usage Restriction
+The custom icons and fonts provided in this package are intended for use exclusively within this package and cannot be redistributed or used separately.

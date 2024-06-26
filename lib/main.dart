@@ -1,19 +1,16 @@
-import 'package:debug_panel_devtool/listen_event.dart';
+import 'package:debug_panel_devtool/pages/debug_panel_page.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return DevToolsExtension(
-      child: LoggingScreen(),
+    return const DevToolsExtension(
+      child: DebugPanelPage(),
     );
   }
 }
