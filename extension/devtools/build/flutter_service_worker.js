@@ -3,64 +3,62 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {
-  "flutter_bootstrap.js": "3c58c1e11a52fe329b20a7236fcd8a17",
-  "version.json": "7cfd8c0a17b7117a834190150b68bab4",
-  "index.html": "7d25bf8aa7ac14eb83842aa67c9c6c44",
-  "/": "7d25bf8aa7ac14eb83842aa67c9c6c44",
-  "main.dart.js": "ce2d93ccbe9c3b5f53d6f61cce42651c",
-  "flutter.js": "383e55f7f3cce5be08fcf1f3881f585c",
-  "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-  "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-  "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
-  "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-  "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-  "manifest.json": "595fefda57848b2a8dbb5e515c918bba",
-  "assets/AssetManifest.json": "26ee98d32209bdc1b88c12d73d9727ec",
-  "assets/NOTICES": "73c99c00336d641f97530e8a29dc7730",
-  "assets/FontManifest.json": "4ee0c175f808288afd964ac8e4f01899",
-  "assets/AssetManifest.bin.json": "48b90f4d210cc532503ae3ce0e69153b",
-  "assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "b72c617acdf2227c8b1413215f620711",
-  "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "a5d7457fda15b7622c14f432ba63039a",
-  "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "f25e8e701660fb45e2a81ff3f43c6d5c",
-  "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Medium.ttf": "7cfbd4284ec01b7ace2f8edb5cddae84",
-  "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Regular.ttf": "b4618f1f7f4cee0ac09873fcc5a966f9",
-  "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Light.ttf": "9d1044ccdbba0efa9a2bfc719a446702",
-  "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Bold.ttf": "7c13b04382bb3c4a6a50211300a1b072",
-  "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Thin.ttf": "288302ea531af8be59f6ac2b5bbbfdd3",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Medium.ttf": "d08840599e05db7345652d3d417574a9",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Light.ttf": "fc84e998bc29b297ea20321e4c90b6ed",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Regular.ttf": "3e1af3ef546b9e6ecef9f3ba197bf7d2",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Bold.ttf": "ee7b96fa85d8fdb8c126409326ac2d2b",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Thin.ttf": "89e2666c24d37055bcb60e9d2d9f7e35",
-  "assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Black.ttf": "ec4c9962ba54eb91787aa93d361c10a8",
-  "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
-  "assets/AssetManifest.bin": "3d35512cdb85603af0a594ecc23d4558",
-  "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
-  "assets/assets/fonts/FFIcons.ttf": "2d8699d7fc799fc94f451fb871a5d2e6",
-  "assets/assets/fonts/Product-Sans-Medium.ttf": "73b7e20983e8bcdfd1600aa7b0fe1f3c",
-  "assets/assets/fonts/Product-Sans-Regular.ttf": "40d7a2b41de60ab0d603f5d8b744b434",
-  "assets/assets/fonts/Product-Sans-Bold.ttf": "6604358fd7e8863a191bb23dd37b7b21",
-  "assets/assets/fonts/NewFFIcons.ttf": "67512e85f8b2e9fedc649468c3b958cb",
-  "assets/assets/fonts/Product-Sans-Light.ttf": "751f3fcb15ee3b0f1b83b2dcfbf09106",
-  "canvaskit/skwasm.js": "5d4f9263ec93efeb022bb14a3881d240",
-  "canvaskit/skwasm.js.symbols": "c3c05bd50bdf59da8626bbe446ce65a3",
-  "canvaskit/canvaskit.js.symbols": "74a84c23f5ada42fe063514c587968c6",
-  "canvaskit/skwasm.wasm": "4051bfc27ba29bf420d17aa0c3a98bce",
-  "canvaskit/chromium/canvaskit.js.symbols": "ee7e331f7f5bbf5ec937737542112372",
-  "canvaskit/chromium/canvaskit.js": "901bb9e28fac643b7da75ecfd3339f3f",
-  "canvaskit/chromium/canvaskit.wasm": "399e2344480862e2dfa26f12fa5891d7",
-  "canvaskit/canvaskit.js": "738255d00768497e86aa4ca510cce1e1",
-  "canvaskit/canvaskit.wasm": "9251bb81ae8464c4df3b072f84aa969b",
-  "canvaskit/skwasm.worker.js": "bfb704a6c714a75da9ef320991e88b03"
-};
+const RESOURCES = {"flutter_bootstrap.js": "4e0911919d05bac643fa35607c4c677a",
+"version.json": "6c82e222382e424acc91ef3deb0e3664",
+"index.html": "7d25bf8aa7ac14eb83842aa67c9c6c44",
+"/": "7d25bf8aa7ac14eb83842aa67c9c6c44",
+"main.dart.js": "ce2d93ccbe9c3b5f53d6f61cce42651c",
+"flutter.js": "383e55f7f3cce5be08fcf1f3881f585c",
+"favicon.png": "5dcef449791fa27946b3d35ad8803796",
+"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
+"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
+"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+"manifest.json": "595fefda57848b2a8dbb5e515c918bba",
+"assets/AssetManifest.json": "26ee98d32209bdc1b88c12d73d9727ec",
+"assets/NOTICES": "73c99c00336d641f97530e8a29dc7730",
+"assets/FontManifest.json": "4ee0c175f808288afd964ac8e4f01899",
+"assets/AssetManifest.bin.json": "48b90f4d210cc532503ae3ce0e69153b",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "b72c617acdf2227c8b1413215f620711",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "a5d7457fda15b7622c14f432ba63039a",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "f25e8e701660fb45e2a81ff3f43c6d5c",
+"assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Medium.ttf": "7cfbd4284ec01b7ace2f8edb5cddae84",
+"assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Regular.ttf": "b4618f1f7f4cee0ac09873fcc5a966f9",
+"assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Light.ttf": "9d1044ccdbba0efa9a2bfc719a446702",
+"assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Bold.ttf": "7c13b04382bb3c4a6a50211300a1b072",
+"assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Thin.ttf": "288302ea531af8be59f6ac2b5bbbfdd3",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Medium.ttf": "d08840599e05db7345652d3d417574a9",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Light.ttf": "fc84e998bc29b297ea20321e4c90b6ed",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Regular.ttf": "3e1af3ef546b9e6ecef9f3ba197bf7d2",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Bold.ttf": "ee7b96fa85d8fdb8c126409326ac2d2b",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Thin.ttf": "89e2666c24d37055bcb60e9d2d9f7e35",
+"assets/packages/devtools_app_shared/fonts/Roboto/Roboto-Black.ttf": "ec4c9962ba54eb91787aa93d361c10a8",
+"assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
+"assets/AssetManifest.bin": "3d35512cdb85603af0a594ecc23d4558",
+"assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
+"assets/assets/fonts/FFIcons.ttf": "2d8699d7fc799fc94f451fb871a5d2e6",
+"assets/assets/fonts/Product-Sans-Medium.ttf": "73b7e20983e8bcdfd1600aa7b0fe1f3c",
+"assets/assets/fonts/Product-Sans-Regular.ttf": "40d7a2b41de60ab0d603f5d8b744b434",
+"assets/assets/fonts/Product-Sans-Bold.ttf": "6604358fd7e8863a191bb23dd37b7b21",
+"assets/assets/fonts/NewFFIcons.ttf": "67512e85f8b2e9fedc649468c3b958cb",
+"assets/assets/fonts/Product-Sans-Light.ttf": "751f3fcb15ee3b0f1b83b2dcfbf09106",
+"canvaskit/skwasm.js": "5d4f9263ec93efeb022bb14a3881d240",
+"canvaskit/skwasm.js.symbols": "c3c05bd50bdf59da8626bbe446ce65a3",
+"canvaskit/canvaskit.js.symbols": "74a84c23f5ada42fe063514c587968c6",
+"canvaskit/skwasm.wasm": "4051bfc27ba29bf420d17aa0c3a98bce",
+"canvaskit/chromium/canvaskit.js.symbols": "ee7e331f7f5bbf5ec937737542112372",
+"canvaskit/chromium/canvaskit.js": "901bb9e28fac643b7da75ecfd3339f3f",
+"canvaskit/chromium/canvaskit.wasm": "399e2344480862e2dfa26f12fa5891d7",
+"canvaskit/canvaskit.js": "738255d00768497e86aa4ca510cce1e1",
+"canvaskit/canvaskit.wasm": "9251bb81ae8464c4df3b072f84aa969b",
+"canvaskit/skwasm.worker.js": "bfb704a6c714a75da9ef320991e88b03"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
-  "index.html",
-  "flutter_bootstrap.js",
-  "assets/AssetManifest.bin.json",
-  "assets/FontManifest.json"];
+"index.html",
+"flutter_bootstrap.js",
+"assets/AssetManifest.bin.json",
+"assets/FontManifest.json"];
 
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
@@ -68,15 +66,15 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value, { 'cache': 'reload' })));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
 // During activate, the cache is populated with the temp files downloaded in
 // install. If this service worker is upgrading from one with a saved
 // MANIFEST, then use this to retain unchanged resource files.
-self.addEventListener("activate", function (event) {
-  return event.waitUntil(async function () {
+self.addEventListener("activate", function(event) {
+  return event.waitUntil(async function() {
     try {
       var contentCache = await caches.open(CACHE_NAME);
       var tempCache = await caches.open(TEMP);
@@ -157,7 +155,7 @@ self.addEventListener("fetch", (event) => {
     return onlineFirst(event);
   }
   event.respondWith(caches.open(CACHE_NAME)
-    .then((cache) => {
+    .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
         // lazily populate the cache only if the resource was successfully fetched.
@@ -167,7 +165,7 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         });
-      });
+      })
     })
   );
 });
