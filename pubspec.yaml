@@ -37,6 +37,7 @@ dependencies:
   debug_panel_proto:
     git:
       url: https://github.com/FlutterFlow/debug_panel_proto.git
+      ref: v0.1.2
   flutterflow_tree_view:
     git:
       url: https://github.com/FlutterFlow/flutter_searchable_treeview.git

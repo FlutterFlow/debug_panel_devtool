@@ -85,11 +85,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: f9fbd8fbccdab8143a089c8ca124de73d4170a33
+      ref: "v0.1.2"
+      resolved-ref: "51eca7e784bd6a43042043f5173013f53851100f"
       url: "https://github.com/FlutterFlow/debug_panel_proto.git"
     source: git
-    version: "0.1.1"
+    version: "0.1.2"
   devtools_app_shared:
     dependency: "direct main"
     description:
