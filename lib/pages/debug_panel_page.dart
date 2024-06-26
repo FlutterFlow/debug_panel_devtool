@@ -40,7 +40,7 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
     extensionEventSubscription = vmService.onExtensionEvent.listen((event) {
       // Check whether it's a FlutterFlow debug data event.
       final isUpdateEvent =
-          event.extensionKind == 'ext.flutterflowApp.updateDebugData';
+          event.extensionKind == 'ext.debug_panel_devtool.updateDebugData';
       if (!isUpdateEvent) return;
 
       deserializeDebugEvent(event.extensionData!.data['data'] as String);
