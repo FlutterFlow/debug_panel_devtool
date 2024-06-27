@@ -169,7 +169,6 @@ void deserializeDebugEvent(String rawEventData) {
       case 'widgetClass':
         variableDebugData.widgetClass = WidgetClassDebugData()
           ..fromSerializedBufferString(eventData);
-        print(variableDebugData.widgetClass?.widgetClassName);
         break;
     }
   }
