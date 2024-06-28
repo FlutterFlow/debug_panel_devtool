@@ -1,3 +1,4 @@
+import 'package:debug_panel_devtool/src/consts/theme_values.dart';
 import 'package:debug_panel_devtool/src/utils/debug_utils.dart';
 import 'package:debug_panel_devtool/src/utils/ff_icons.dart';
 import 'package:debug_panel_devtool/src/utils/ff_utils.dart';
@@ -20,30 +21,34 @@ class NarrowModal extends StatelessWidget {
   const NarrowModal({
     super.key,
     required this.narrowModalSections,
-    this.treeController,
+    required this.treeController,
   });
 
   /// The list of tree nodes that will be displayed in the narrow modal.
   final List<TreeNode> narrowModalSections;
 
   /// The tree controller to manage the tree state.
-  final TreeController? treeController;
+  final TreeController treeController;
 
   @override
-  Widget build(BuildContext context) => TreeView(
-        treeController: treeController,
-        style: NodeStyle(
-          levelIndent: 12,
-          arrowIconSize: 16,
-          arrowIcon: FFIcons.arrow_down,
-          arrowIconPrimaryColor: context.theme.white,
-          arrowIconSecondaryColor: context.theme.secondaryText,
-          backgroundErrorColor: context.theme.messageRed.withOpacity(0.25),
-        ),
-        nodes: narrowModalSections
-            .where((s) => s.children?.isNotEmpty ?? false)
-            .toList(),
-      );
+  Widget build(BuildContext context) {
+    return TreeView(
+      treeController: treeController,
+      listPadding: const EdgeInsets.symmetric(horizontal: kPadding8px),
+      style: NodeStyle(
+        levelIndent: kPadding12px,
+        arrowIconSize: kIconSize16px,
+        arrowIcon: FFIcons.arrow_down,
+        arrowIconPrimaryColor: context.theme.white,
+        arrowIconSecondaryColor: context.theme.secondaryText
+            .withOpacity(context.theme.isLightMode ? 0.5 : 1),
+        backgroundErrorColor: context.theme.messageRed.withOpacity(0.25),
+      ),
+      nodes: narrowModalSections
+          .where((s) => s.children?.isNotEmpty ?? false)
+          .toList(),
+    );
+  }
 }
 
 /// A widget that represents the content of a narrow modal field.
@@ -260,8 +265,7 @@ class NarrowModalFieldContent extends StatelessWidget {
                               ? null
                               : dataField.value,
                           hoverContainerColor: context.theme.panelBorderColor,
-                          copySnackbarMessage:
-                              'Copied value of variable "$name"!',
+                          copySnackbarMessage: 'Copied "$name" value!',
                           isIconAlwaysVisible: false,
                           maxLines: 1,
                           textOverflow: TextOverflow.ellipsis,
