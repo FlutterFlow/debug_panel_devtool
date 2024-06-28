@@ -50,7 +50,9 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
   @override
   void initState() {
     super.initState();
-    _treeController = TreeController();
+    _treeController = TreeController(
+      onNodeToggled: (name) => setState(() {}),
+    );
     _appEventHandler();
   }
 
@@ -192,14 +194,10 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
                                 ],
                               ),
                             )
-                          : SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(kPadding8px),
-                                child: NarrowModal(
-                                  treeController: _treeController,
-                                  narrowModalSections: filteredDebugTree,
-                                ),
-                              ),
+                          // padding: const EdgeInsets.all(kPadding8px),
+                          : NarrowModal(
+                              treeController: _treeController,
+                              narrowModalSections: filteredDebugTree,
                             ),
                     ),
                   ],

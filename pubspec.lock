@@ -189,8 +189,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "souvik/updated_tree_view"
-      resolved-ref: "104ac42d25c53d560b2f1e4f136038f7b698904f"
+      ref: optimized_tree_view
+      resolved-ref: "89b9d763d4ad1ee77517007236fdbce862cb7539"
       url: "https://github.com/FlutterFlow/flutter_searchable_treeview.git"
     source: git
     version: "2.0.0"
@@ -487,6 +487,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliver_tools:
+    dependency: "direct main"
+    description:
+      name: sliver_tools
+      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.12"
   source_span:
     dependency: transitive
     description:
