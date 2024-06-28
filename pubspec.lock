@@ -122,6 +122,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  easy_debounce:
+    dependency: "direct main"
+    description:
+      name: easy_debounce
+      sha256: "476ea3a9062023be76d9d3f48188af75137ad0b57bc250a0fb7adcc471923f51"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   extension_discovery:
     dependency: transitive
     description:
@@ -190,10 +198,10 @@ packages:
     description:
       path: "."
       ref: optimized_tree_view
-      resolved-ref: feea735d0c8048bcd0c21b9517cf7621bd043ec7
+      resolved-ref: a75ae970baa0931bcac7dabb811d39b32c43ba8a
       url: "https://github.com/FlutterFlow/flutter_searchable_treeview.git"
     source: git
-    version: "2.0.0"
+    version: "2.1.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:

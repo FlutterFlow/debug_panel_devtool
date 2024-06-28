@@ -169,7 +169,6 @@ void deserializeDebugEvent(String rawEventData) {
       case 'widgetClass':
         variableDebugData.widgetClass = WidgetClassDebugData()
           ..fromSerializedBufferString(eventData);
-        print(variableDebugData.widgetClass?.widgetClassName);
         break;
     }
   }
@@ -250,7 +249,8 @@ class VariableDebugData extends ChangeNotifier {
   /// Returns a list of tree nodes representing the debug data.
   List<TreeNode> _treeNodeFromJsonMap(
     Map<String, DebugDataField>? data,
-    BuildContext context, {
+    BuildContext context,
+    TreeController treeController, {
     required DebugSectionType parentSectionType,
   }) {
     if (data == null) {
@@ -259,6 +259,7 @@ class VariableDebugData extends ChangeNotifier {
     return data.entries
         .map((e) => _dataFieldToTreeNode(
               e.key,
+              treeController,
               e.value,
               context,
               parentSectionType: parentSectionType,
@@ -276,6 +277,7 @@ class VariableDebugData extends ChangeNotifier {
   /// Returns a tree node representing the debug data field.
   TreeNode _dataFieldToTreeNode(
     String key,
+    TreeController treeController,
     DebugDataField dataField,
     BuildContext context, {
     required DebugSectionType parentSectionType,
@@ -283,6 +285,7 @@ class VariableDebugData extends ChangeNotifier {
     try {
       if (dataField.whichData() == DebugDataField_Data.listValue) {
         return narrowModalField(
+          treeController: treeController,
           parentSectionType: parentSectionType,
           dataField: dataField,
           name: key,
@@ -290,6 +293,7 @@ class VariableDebugData extends ChangeNotifier {
               .mapIndexed(
                 (i, field) => _dataFieldToTreeNode(
                   'Item [$i]',
+                  treeController,
                   field,
                   context,
                   parentSectionType: parentSectionType,
@@ -306,23 +310,27 @@ class VariableDebugData extends ChangeNotifier {
         DebugDataField_ParamType.DOCUMENT
       ].contains(dataField.type)) {
         return narrowModalField(
+          treeController: treeController,
           parentSectionType: parentSectionType,
           dataField: dataField,
           name: key,
           childrenNodes: _treeNodeFromJsonMap(
             dataField.mapValue.values,
             context,
+            treeController,
             parentSectionType: parentSectionType,
           ),
         );
       }
       return narrowModalField(
+        treeController: treeController,
         name: key,
         dataField: dataField,
         parentSectionType: parentSectionType,
       );
     } catch (e) {
       return narrowModalField(
+        treeController: treeController,
         name: key,
         dataField: dataField,
         parentSectionType: parentSectionType,
@@ -335,15 +343,24 @@ class VariableDebugData extends ChangeNotifier {
   /// * [context] parameter is the build context.
   ///
   /// Returns a list of tree nodes representing the debug data.
-  List<TreeNode> toTreeNode(BuildContext context) {
+  List<TreeNode> toTreeNode(
+    BuildContext context,
+    TreeController controller,
+  ) {
     return [
-      if (widgetClass != null) ...widgetClassToTreeNode(widgetClass!, context),
+      if (widgetClass != null)
+        ...widgetClassToTreeNode(
+          widgetClass!,
+          context,
+          controller,
+        ),
       narrowModalSection(
         context,
         sectionTitle: 'App State',
         childrenNodes: _treeNodeFromJsonMap(
           appState?.values,
           context,
+          controller,
           parentSectionType: DebugSectionType.appState,
         ),
       ),
@@ -353,6 +370,7 @@ class VariableDebugData extends ChangeNotifier {
         childrenNodes: _treeNodeFromJsonMap(
           appConstant?.values,
           context,
+          controller,
           parentSectionType: DebugSectionType.appConstants,
         ),
       ),
@@ -362,6 +380,7 @@ class VariableDebugData extends ChangeNotifier {
         childrenNodes: _treeNodeFromJsonMap(
           globalProperty?.values,
           context,
+          controller,
           parentSectionType: DebugSectionType.globalProperties,
         ),
       ),
@@ -371,6 +390,7 @@ class VariableDebugData extends ChangeNotifier {
         childrenNodes: _treeNodeFromJsonMap(
           authenticatedUser?.values,
           context,
+          controller,
           parentSectionType: DebugSectionType.authenticatedUser,
         ),
       ),
@@ -387,7 +407,8 @@ class VariableDebugData extends ChangeNotifier {
   /// Returns a list of tree nodes representing the widget class debug data.
   List<TreeNode> widgetClassToTreeNode(
     WidgetClassDebugData widgetClass,
-    BuildContext context, {
+    BuildContext context,
+    TreeController controller, {
     isSubLevel = false,
     isComponent = false,
   }) {
@@ -395,36 +416,42 @@ class VariableDebugData extends ChangeNotifier {
     final widgetParameterNodes = _treeNodeFromJsonMap(
       widgetClass.widgetParameters,
       context,
+      controller,
       parentSectionType: DebugSectionType.pageParameters,
     );
     // Page State
     final localStateNodes = _treeNodeFromJsonMap(
       widgetClass.localStates,
       context,
+      controller,
       parentSectionType: DebugSectionType.pageState,
     );
     // Widget State
     final widgetStateNodes = _treeNodeFromJsonMap(
       widgetClass.widgetStates,
       context,
+      controller,
       parentSectionType: DebugSectionType.widgetState,
     );
     // Action Outputs
     final actionOutputNodes = _treeNodeFromJsonMap(
       widgetClass.actionOutputs,
       context,
+      controller,
       parentSectionType: DebugSectionType.actionOutputs,
     );
     // Generator Variables
     final generatorVariablesNodes = _treeNodeFromJsonMap(
       widgetClass.generatorVariables,
       context,
+      controller,
       parentSectionType: DebugSectionType.generatorVariables,
     );
     // Backend Queries
     final backendQueriesNodes = _treeNodeFromJsonMap(
       widgetClass.backendQueries,
       context,
+      controller,
       parentSectionType: DebugSectionType.backendQueries,
     );
     // Components
@@ -436,6 +463,7 @@ class VariableDebugData extends ChangeNotifier {
             childrenNodes: widgetClassToTreeNode(
               component,
               context,
+              controller,
               isSubLevel: true,
               isComponent: true,
             ),
@@ -461,6 +489,7 @@ class VariableDebugData extends ChangeNotifier {
                   childrenNodes: widgetClassToTreeNode(
                     component,
                     context,
+                    controller,
                     isSubLevel: true,
                     isComponent: true,
                   ),

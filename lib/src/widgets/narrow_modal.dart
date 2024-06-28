@@ -64,16 +64,21 @@ class NarrowModalFieldContent extends StatelessWidget {
   /// All parameters are required.
   const NarrowModalFieldContent({
     super.key,
+    required this.treeController,
     required this.dataField,
     required this.name,
     required this.hasChildren,
     required this.parentSectionType,
   });
 
+  final TreeController treeController;
   final DebugDataField dataField;
   final String name;
   final bool hasChildren;
   final DebugSectionType parentSectionType;
+
+  void logEvent(String name, [Map<String, dynamic>? params]) =>
+      treeController.onEvent((name: name, params: params));
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +262,7 @@ class NarrowModalFieldContent extends StatelessWidget {
                           maxLines: 1,
                           textOverflow: TextOverflow.ellipsis,
                           textStyle: textValueStyle,
-                          // onOpen: () => ffLogEvent('debug-panel-open-link'),
+                          onOpen: () => logEvent('debug-panel-open-link'),
                         )
                       : CopyText(
                           textValue,
@@ -270,7 +275,7 @@ class NarrowModalFieldContent extends StatelessWidget {
                           maxLines: 1,
                           textOverflow: TextOverflow.ellipsis,
                           textStyle: textValueStyle,
-                          // onCopy: () => ffLogEvent('debug-panel-copy-value'),
+                          onCopy: () => logEvent('debug-panel-copy-value'),
                         ),
                 ),
               ),
@@ -289,6 +294,7 @@ class NarrowModalFieldContent extends StatelessWidget {
 ///
 /// Returns a [TreeNode] object representing the narrow modal field.
 TreeNode narrowModalField({
+  required TreeController treeController,
   required String name,
   required DebugDataField dataField,
   List<TreeNode> childrenNodes = const [],
@@ -300,6 +306,7 @@ TreeNode narrowModalField({
   return TreeNode(
     name: name,
     content: NarrowModalFieldContent(
+      treeController: treeController,
       dataField: dataField,
       name: name,
       hasChildren: childrenNodes.isNotEmpty,

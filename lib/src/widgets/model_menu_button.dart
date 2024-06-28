@@ -198,7 +198,6 @@ class ModalMenuButtonState extends State<ModalMenuButton> {
       }
       _lastAddedMenu = menu = OverlayEntry(builder: buildMenu);
       widget.onToggled?.call(eventName);
-      // ffLogEvent(eventName);
       Overlay.of(context).insert(menu!);
       return true;
     } else {
