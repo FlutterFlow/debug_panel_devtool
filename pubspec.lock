@@ -197,7 +197,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: optimized_tree_view
+      ref: "v2.1.0"
       resolved-ref: a75ae970baa0931bcac7dabb811d39b32c43ba8a
       url: "https://github.com/FlutterFlow/flutter_searchable_treeview.git"
     source: git
