@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:debug_panel_devtool/src/consts/theme_values.dart';
+import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
 import 'package:debug_panel_devtool/src/utils/debug_utils.dart';
 import 'package:debug_panel_devtool/src/utils/ff_icons.dart';
 import 'package:debug_panel_devtool/src/utils/ff_utils.dart';
@@ -8,16 +7,13 @@ import 'package:debug_panel_devtool/src/widgets/filter_icon_button.dart';
 import 'package:debug_panel_devtool/src/widgets/flutter_flow_progress_indicator.dart';
 import 'package:debug_panel_devtool/src/widgets/narrow_modal.dart';
 import 'package:debug_panel_devtool/src/widgets/panel_search.dart';
-import 'package:debug_panel_devtool/themes/flutter_flow_default_theme.dart';
 import 'package:debug_panel_proto/debug_panel_proto.dart';
-import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_tree_view/flutterflow_tree_view.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 import 'package:text_search/text_search.dart';
-import 'package:vm_service/vm_service.dart';
 
 /// A panel that displays debug variables.
 class DebugVariablesPanel extends StatefulWidget {
@@ -36,25 +32,10 @@ class _DebugVariablesPanelState extends State<DebugVariablesPanel> {
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
   late final TreeController _treeController;
-  late final StreamSubscription extensionEventSubscription;
-  late final VmService vmService;
 
   List<DebugDataField_ParamType> _selectedFilterDataTypes = [];
   bool _isShowOnlyNonNullableVariables = false;
   bool _isShowOnlyVariablesWithNullValues = false;
-
-  /// Handles the application event.
-  Future<void> _appEventHandler() async {
-    vmService = await serviceManager.onServiceAvailable;
-    extensionEventSubscription = vmService.onExtensionEvent.listen((event) {
-      // Check whether it's a FlutterFlow debug data event.
-      final isUpdateEvent =
-          event.extensionKind == 'ext.debug_panel_devtool.updateDebugData';
-      if (!isUpdateEvent) return;
-
-      deserializeDebugEvent(event.extensionData!.data['data'] as String);
-    });
-  }
 
   @override
   void initState() {
@@ -71,14 +52,6 @@ class _DebugVariablesPanelState extends State<DebugVariablesPanel> {
       },
       onTreeEvent: (event) => widget.onEvent(event.name, event.params),
     );
-    _appEventHandler();
-  }
-
-  @override
-  void dispose() {
-    extensionEventSubscription.cancel();
-    vmService.dispose();
-    super.dispose();
   }
 
   /// Logs an event with the given name and parameters.

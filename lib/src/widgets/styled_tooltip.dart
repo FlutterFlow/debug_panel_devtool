@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:debug_panel_devtool/src/utils/ff_utils.dart';
-import 'package:debug_panel_devtool/themes/flutter_flow_default_theme.dart';
+import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 

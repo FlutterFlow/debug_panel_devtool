@@ -5,7 +5,7 @@ import 'package:debug_panel_devtool/src/utils/ff_utils.dart';
 import 'package:debug_panel_devtool/src/widgets/flutter_flow_button.dart';
 import 'package:debug_panel_devtool/src/widgets/panel_search.dart';
 import 'package:debug_panel_devtool/src/widgets/property_name.dart';
-import 'package:debug_panel_devtool/themes/flutter_flow_default_theme.dart';
+import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:text_search/text_search.dart';

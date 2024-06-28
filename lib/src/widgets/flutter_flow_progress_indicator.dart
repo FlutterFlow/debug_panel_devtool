@@ -1,4 +1,4 @@
-import 'package:debug_panel_devtool/themes/flutter_flow_default_theme.dart';
+import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlutterFlowProgressIndicator extends StatelessWidget {
