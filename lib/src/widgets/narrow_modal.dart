@@ -212,14 +212,19 @@ class NarrowModalFieldContent extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Text(
-            name,
-            style: productSans(
-              context,
-              size: 14,
-              color: isValueNull && !isNullable
-                  ? context.theme.messageRed
-                  : context.theme.secondaryText,
+          Expanded(
+            flex: hasChildren ? 1 : 0,
+            child: Text(
+              name,
+              maxLines: 1,
+              style: productSans(
+                context,
+                size: 14,
+                color: isValueNull && !isNullable
+                    ? context.theme.messageRed
+                    : context.theme.secondaryText,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           const SizedBox(width: 8),
@@ -233,6 +238,7 @@ class NarrowModalFieldContent extends StatelessWidget {
                       : ConstrainedBox(
                           constraints: const BoxConstraints(
                             maxWidth: 300,
+                            maxHeight: 300,
                           ),
                           child: SelectableText(
                             [
@@ -250,7 +256,7 @@ class NarrowModalFieldContent extends StatelessWidget {
                             ),
                           ),
                         ),
-                  preferredDirection: AxisDirection.right,
+                  preferredDirection: AxisDirection.up,
                   child: isValueUrl
                       ? LinkText(
                           textValue,
