@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:debug_panel_devtool/src/consts/theme_values.dart';
-import 'package:debug_panel_devtool/src/utils/ff_utils.dart';
-import 'package:debug_panel_devtool/src/widgets/styled_tooltip.dart';
-import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
+import 'package:flutterflow_debug_panel/src/consts/theme_values.dart';
+import 'package:flutterflow_debug_panel/src/utils/ff_utils.dart';
+import 'package:flutterflow_debug_panel/src/widgets/styled_tooltip.dart';
+import 'package:flutterflow_debug_panel/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

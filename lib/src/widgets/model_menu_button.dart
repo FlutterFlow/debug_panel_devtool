@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:debug_panel_devtool/src/widgets/flutter_flow_hover.dart';
-import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
+import 'package:flutterflow_debug_panel/src/widgets/flutter_flow_hover.dart';
+import 'package:flutterflow_debug_panel/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 

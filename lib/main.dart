@@ -1,4 +1,4 @@
-import 'package:debug_panel_devtool/src/pages/debug_panel_page.dart';
+import 'package:flutterflow_debug_panel/src/pages/debug_panel_page.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 

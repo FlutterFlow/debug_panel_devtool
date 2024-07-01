@@ -1,6 +1,6 @@
 {
-    "name": "debug_panel_devtool",
-    "short_name": "debug_panel_devtool",
+    "name": "FlutterFlow Debug Panel",
+    "short_name": "Debug Panel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
