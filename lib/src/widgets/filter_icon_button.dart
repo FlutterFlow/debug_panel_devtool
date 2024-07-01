@@ -1,12 +1,12 @@
-import 'package:debug_panel_devtool/src/consts/theme_values.dart';
-import 'package:debug_panel_devtool/src/utils/debug_utils.dart';
-import 'package:debug_panel_devtool/src/utils/ff_icons.dart';
-import 'package:debug_panel_devtool/src/widgets/flutter_flow_button.dart';
-import 'package:debug_panel_devtool/src/widgets/flutter_flow_checkbox.dart';
-import 'package:debug_panel_devtool/src/widgets/flutter_flow_multiselect_dropdown.dart';
-import 'package:debug_panel_devtool/src/widgets/model_menu_button.dart';
-import 'package:debug_panel_devtool/src/widgets/styled_tooltip.dart';
-import 'package:debug_panel_devtool/src/themes/flutter_flow_default_theme.dart';
+import 'package:flutterflow_debug_panel/src/consts/theme_values.dart';
+import 'package:flutterflow_debug_panel/src/utils/debug_utils.dart';
+import 'package:flutterflow_debug_panel/src/utils/ff_icons.dart';
+import 'package:flutterflow_debug_panel/src/widgets/flutter_flow_button.dart';
+import 'package:flutterflow_debug_panel/src/widgets/flutter_flow_checkbox.dart';
+import 'package:flutterflow_debug_panel/src/widgets/flutter_flow_multiselect_dropdown.dart';
+import 'package:flutterflow_debug_panel/src/widgets/model_menu_button.dart';
+import 'package:flutterflow_debug_panel/src/widgets/styled_tooltip.dart';
+import 'package:flutterflow_debug_panel/src/themes/flutter_flow_default_theme.dart';
 import 'package:debug_panel_proto/debug_panel_proto.dart';
 import 'package:flutter/material.dart';
 

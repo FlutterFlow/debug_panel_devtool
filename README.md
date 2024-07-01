@@ -1,4 +1,4 @@
-# Debug Panel DevTools Extension
+# FlutterFlow Debug Panel DevTools Extension
 
 This extension displays debugging data exclusively from FlutterFlow apps in Local Run mode.
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:debug_panel_devtool/src/utils/debug_utils.dart';
-import 'package:debug_panel_devtool/src/widgets/debug_variables_panel.dart';
+import 'package:flutterflow_debug_panel/src/utils/debug_utils.dart';
+import 'package:flutterflow_debug_panel/src/widgets/debug_variables_panel.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
     extensionEventSubscription = vmService.onExtensionEvent.listen((event) {
       // Check whether it's a FlutterFlow debug data event.
       final isUpdateEvent =
-          event.extensionKind == 'ext.debug_panel_devtool.updateDebugData';
+          event.extensionKind == 'ext.flutterflow_debug_panel.updateDebugData';
       if (!isUpdateEvent) return;
 
       deserializeDebugEvent(event.extensionData!.data['data'] as String);

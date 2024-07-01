@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "debug_panel_devtool",
+      "name": "flutterflow_debug_panel",
       "request": "launch",
       "type": "dart",
       "args": ["--dart-define=use_simulated_environment=true"]

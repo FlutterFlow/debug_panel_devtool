@@ -5422,48 +5422,6 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
-debug_panel_devtool
-
-# Code License (MIT)
-
-Copyright (c) 2024 FlutterFlow
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
-# Custom Asset License
-
-## Permissions
-- You are permitted to use the custom icons and fonts provided by FlutterFlow exclusively within this Flutter package.
-
-## Conditions
-- You must include this license file in any distribution of this package.
-- You must attribute FlutterFlow as the creator of the icons and fonts in your project documentation or README file.
-
-## Limitations
-- You may not use these icons and fonts in any other project or package.
-- You may not redistribute these icons and fonts as standalone files or in any form outside this package.
-- You may not use these icons and fonts for commercial purposes without obtaining additional permission from FlutterFlow.
-
-## Contact
-For permissions beyond the scope of this license, please contact support@flutterflow.io.
---------------------------------------------------------------------------------
 debug_panel_proto
 
 BSD 3-Clause License
@@ -7457,6 +7415,48 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+--------------------------------------------------------------------------------
+flutterflow_debug_panel
+
+# Code License (MIT)
+
+Copyright (c) 2024 FlutterFlow
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+# Custom Asset License
+
+## Permissions
+- You are permitted to use the custom icons and fonts provided by FlutterFlow exclusively within this Flutter package.
+
+## Conditions
+- You must include this license file in any distribution of this package.
+- You must attribute FlutterFlow as the creator of the icons and fonts in your project documentation or README file.
+
+## Limitations
+- You may not use these icons and fonts in any other project or package.
+- You may not redistribute these icons and fonts as standalone files or in any form outside this package.
+- You may not use these icons and fonts for commercial purposes without obtaining additional permission from FlutterFlow.
+
+## Contact
+For permissions beyond the scope of this license, please contact support@flutterflow.io.
 --------------------------------------------------------------------------------
 flutterflow_tree_view
 
