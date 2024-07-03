@@ -40,6 +40,12 @@ class _NodeWidgetState extends State<NodeWidget> {
   @override
   Widget build(BuildContext context) {
     final style = widget.style;
+    final link = widget.treeNode.metaData == null
+        ? null
+        : widget.treeNode.metaData['link'];
+    final searchReference = widget.treeNode.metaData == null
+        ? null
+        : widget.treeNode.metaData['searchReference'];
     return Padding(
       padding: EdgeInsets.only(left: style.levelIndent * widget.level),
       child: SizedBox(
@@ -55,9 +61,7 @@ class _NodeWidgetState extends State<NodeWidget> {
               borderRadius: BorderRadius.circular(8),
               // For allowing users to right click on the node when it has a link
               // or search reference.
-              onSecondaryTapUp: widget.treeNode.metaData == null ||
-                      (widget.treeNode.metaData['link'] == null &&
-                          widget.treeNode.metaData['searchReference'] == null)
+              onSecondaryTapUp: link == null && searchReference == null
                   ? null
                   : (details) async {
                       final position = details.globalPosition;
@@ -92,32 +96,25 @@ class _NodeWidgetState extends State<NodeWidget> {
                                       borderRadius: BorderRadius.circular(7.0),
                                       child: Column(
                                         children: [
-                                          if (widget
-                                                  .treeNode.metaData['link'] !=
-                                              null)
+                                          if (link != null)
                                             ModalMenuItem(
                                               text: 'See definition',
                                               color: context.theme.primaryText,
                                               iconData:
                                                   Icons.open_in_new_rounded,
                                               onTap: () {
-                                                openUrl(widget.treeNode
-                                                    .metaData['link']!);
+                                                openUrl(link!);
                                                 Navigator.pop(context);
                                               },
                                             ),
-                                          if (widget.treeNode.metaData[
-                                                  'searchReference'] !=
-                                              null)
+                                          if (searchReference != null)
                                             ModalMenuItem(
                                               text: 'See all instances',
                                               color: context.theme.primaryText,
                                               iconData:
                                                   Icons.open_in_new_rounded,
                                               onTap: () {
-                                                openUrl(
-                                                    widget.treeNode.metaData[
-                                                        'searchReference']!);
+                                                openUrl(searchReference!);
                                                 Navigator.pop(context);
                                               },
                                             ),
