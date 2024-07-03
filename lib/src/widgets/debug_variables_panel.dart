@@ -20,9 +20,12 @@ class DebugVariablesPanel extends StatefulWidget {
   const DebugVariablesPanel({
     super.key,
     required this.onEvent,
+    this.listGradientColor,
   });
 
   final Function(String name, Map<String, dynamic>? params) onEvent;
+
+  final Color? listGradientColor;
 
   @override
   State<DebugVariablesPanel> createState() => _DebugVariablesPanelState();
@@ -41,14 +44,22 @@ class _DebugVariablesPanelState extends State<DebugVariablesPanel> {
   void initState() {
     super.initState();
     _treeController = TreeController(
-      onNodeToggled: (name) {
+      onNodeToggled: (name, [isAllExpanded]) {
         if (mounted) {
           setState(() {});
         }
-        logEvent(
-          'debug-panel-toggle-section',
-          {'name': name},
-        );
+
+        if (name != null) {
+          logEvent(
+            'debug-panel-toggle-section',
+            {'name': name},
+          );
+        } else if (isAllExpanded != null) {
+          logEvent(
+            'debug-panel-${isAllExpanded ? 'expand' : 'collapse'}-all',
+            {},
+          );
+        }
       },
       onTreeEvent: (event) => widget.onEvent(event.name, event.params),
     );
@@ -188,9 +199,43 @@ class _DebugVariablesPanelState extends State<DebugVariablesPanel> {
                               ],
                             ),
                           )
-                        : NarrowModal(
-                            treeController: _treeController,
-                            narrowModalSections: filteredDebugTree,
+                        : Stack(
+                            children: [
+                              NarrowModal(
+                                treeController: _treeController,
+                                narrowModalSections: filteredDebugTree,
+                                listGradientColor: widget.listGradientColor,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    onTap: () =>
+                                        _treeController.allNodesExpanded
+                                            ? _treeController.collapseAll()
+                                            : _treeController.expandAll(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: kPadding8px,
+                                        vertical: kPadding2px,
+                                      ),
+                                      child: Text(
+                                        _treeController.allNodesExpanded
+                                            ? 'Collapse all'
+                                            : 'Expand all',
+                                        style: productSans(
+                                          context,
+                                          size: kFontSize12px,
+                                          color: context.theme.secondaryText,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                   ),
                 ],

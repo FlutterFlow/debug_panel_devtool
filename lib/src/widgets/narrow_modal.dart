@@ -5,6 +5,8 @@ import 'package:flutterflow_debug_panel/src/utils/ff_utils.dart';
 import 'package:flutterflow_debug_panel/src/themes/flutter_flow_default_theme.dart';
 import 'package:debug_panel_proto/debug_panel_proto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterflow_debug_panel/src/widgets/debug_tree_view.dart';
+import 'package:flutterflow_debug_panel/src/widgets/node_widget.dart';
 import 'package:flutterflow_tree_view/flutterflow_tree_view.dart';
 
 import 'action_text.dart';
@@ -22,6 +24,7 @@ class NarrowModal extends StatelessWidget {
     super.key,
     required this.narrowModalSections,
     required this.treeController,
+    this.listGradientColor,
   });
 
   /// The list of tree nodes that will be displayed in the narrow modal.
@@ -30,19 +33,32 @@ class NarrowModal extends StatelessWidget {
   /// The tree controller to manage the tree state.
   final TreeController treeController;
 
+  final Color? listGradientColor;
+
   @override
   Widget build(BuildContext context) {
-    return TreeView(
+    return DebugTreeView(
       treeController: treeController,
-      listPadding: const EdgeInsets.symmetric(horizontal: kPadding8px),
-      style: NodeStyle(
-        levelIndent: kPadding12px,
-        arrowIconSize: kIconSize16px,
-        arrowIcon: FFIcons.arrow_down,
-        arrowIconPrimaryColor: context.theme.white,
-        arrowIconSecondaryColor: context.theme.secondaryText
-            .withOpacity(context.theme.isLightMode ? 0.5 : 1),
-        backgroundErrorColor: context.theme.messageRed.withOpacity(0.25),
+      listGradientColor: listGradientColor,
+      listPadding: const EdgeInsets.only(
+        top: kPadding16px,
+        left: kPadding8px,
+        right: kPadding8px,
+        bottom: kPadding8px,
+      ),
+      nodeBuilder: (context, flattenedNode) => NodeWidget(
+        treeNode: flattenedNode.node,
+        state: treeController,
+        level: flattenedNode.level,
+        style: NodeStyle(
+          levelIndent: kPadding12px,
+          arrowIconSize: kIconSize16px,
+          arrowIcon: FFIcons.arrow_down,
+          arrowIconPrimaryColor: context.theme.white,
+          arrowIconSecondaryColor: context.theme.secondaryText
+              .withOpacity(context.theme.isLightMode ? 0.5 : 1),
+          backgroundErrorColor: context.theme.messageRed.withOpacity(0.25),
+        ),
       ),
       nodes: narrowModalSections
           .where((s) => s.children?.isNotEmpty ?? false)
@@ -327,6 +343,9 @@ TreeNode narrowModalField({
       'type': dataField.type,
       'isNullable': dataField.nullable,
       'isValueNull': isValueNull,
+      'link': dataField.link.isEmpty ? null : dataField.link,
+      'searchReference':
+          dataField.searchReference.isEmpty ? null : dataField.searchReference,
     },
   );
 }
