@@ -10,7 +10,7 @@ class NodeWidget extends StatefulWidget {
   const NodeWidget({
     super.key,
     required this.treeNode,
-    required this.state,
+    required this.controller,
     required this.style,
     this.level = 0,
   });
@@ -19,7 +19,7 @@ class NodeWidget extends StatefulWidget {
   final TreeNode treeNode;
 
   /// Manages the state of the tree.
-  final TreeController state;
+  final TreeController controller;
 
   /// Style configuration for the node.
   final NodeStyle style;
@@ -35,7 +35,11 @@ class _NodeWidgetState extends State<NodeWidget> {
   bool get _isLeaf =>
       widget.treeNode.children == null || widget.treeNode.children!.isEmpty;
 
-  bool get _isExpanded => widget.state.isNodeExpanded(widget.treeNode.key!);
+  bool get _isExpanded =>
+      widget.controller.isNodeExpanded(widget.treeNode.key!);
+
+  void logEvent(String name, [Map<String, dynamic>? params]) =>
+      widget.controller.onEvent((name: name, params: params));
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +106,11 @@ class _NodeWidgetState extends State<NodeWidget> {
                                             iconData: Icons.open_in_new_rounded,
                                             onTap: () {
                                               openUrl(link!);
+                                              logEvent(
+                                                  'debug-panel-right-click', {
+                                                'option': 'link',
+                                                'link': link,
+                                              });
                                               Navigator.pop(context);
                                             },
                                           ),
@@ -112,8 +121,14 @@ class _NodeWidgetState extends State<NodeWidget> {
                                               iconData:
                                                   Icons.open_in_new_rounded,
                                               onTap: () {
-                                                openUrl(
-                                                    '$link&$searchReference');
+                                                final searchRefLink =
+                                                    '$link&$searchReference';
+                                                openUrl(searchRefLink);
+                                                logEvent(
+                                                    'debug-panel-right-click', {
+                                                  'option': 'search-reference',
+                                                  'link': searchRefLink,
+                                                });
                                                 Navigator.pop(context);
                                               },
                                             ),
@@ -131,7 +146,7 @@ class _NodeWidgetState extends State<NodeWidget> {
               onTap: _isLeaf
                   ? null
                   : () => setState(
-                        () => widget.state.toggleNodeExpanded(
+                        () => widget.controller.toggleNodeExpanded(
                           widget.treeNode.key!,
                           widget.treeNode.name,
                         ),

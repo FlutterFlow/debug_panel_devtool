@@ -48,7 +48,7 @@ class NarrowModal extends StatelessWidget {
       ),
       nodeBuilder: (context, flattenedNode) => NodeWidget(
         treeNode: flattenedNode.node,
-        state: treeController,
+        controller: treeController,
         level: flattenedNode.level,
         style: NodeStyle(
           levelIndent: kPadding12px,
