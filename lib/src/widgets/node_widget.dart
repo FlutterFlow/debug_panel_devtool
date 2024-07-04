@@ -61,7 +61,7 @@ class _NodeWidgetState extends State<NodeWidget> {
               borderRadius: BorderRadius.circular(8),
               // For allowing users to right click on the node when it has a link
               // or search reference.
-              onSecondaryTapUp: link == null && searchReference == null
+              onSecondaryTapUp: link == null
                   ? null
                   : (details) async {
                       final position = details.globalPosition;
@@ -96,17 +96,15 @@ class _NodeWidgetState extends State<NodeWidget> {
                                       borderRadius: BorderRadius.circular(7.0),
                                       child: Column(
                                         children: [
-                                          if (link != null)
-                                            ModalMenuItem(
-                                              text: 'See definition',
-                                              color: context.theme.primaryText,
-                                              iconData:
-                                                  Icons.open_in_new_rounded,
-                                              onTap: () {
-                                                openUrl(link!);
-                                                Navigator.pop(context);
-                                              },
-                                            ),
+                                          ModalMenuItem(
+                                            text: 'See definition',
+                                            color: context.theme.primaryText,
+                                            iconData: Icons.open_in_new_rounded,
+                                            onTap: () {
+                                              openUrl(link!);
+                                              Navigator.pop(context);
+                                            },
+                                          ),
                                           if (searchReference != null)
                                             ModalMenuItem(
                                               text: 'See all instances',
@@ -114,7 +112,8 @@ class _NodeWidgetState extends State<NodeWidget> {
                                               iconData:
                                                   Icons.open_in_new_rounded,
                                               onTap: () {
-                                                openUrl(searchReference!);
+                                                openUrl(
+                                                    '$link&$searchReference');
                                                 Navigator.pop(context);
                                               },
                                             ),
