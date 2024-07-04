@@ -197,11 +197,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v2.1.0"
-      resolved-ref: a75ae970baa0931bcac7dabb811d39b32c43ba8a
+      ref: "v2.2.0"
+      resolved-ref: "798f3690bc41cb94adb06e5b8738ed7e0c4974a2"
       url: "https://github.com/FlutterFlow/flutter_searchable_treeview.git"
     source: git
-    version: "2.1.0"
+    version: "2.2.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:flutterflow_debug_panel/src/utils/debug_utils.dart';
 import 'package:flutterflow_debug_panel/src/widgets/debug_variables_panel.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
@@ -35,6 +36,9 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
   @override
   void initState() {
     super.initState();
+    // Disable the browser's default context menu, so that we can show our
+    // custom right-click menu on the variables.
+    BrowserContextMenu.disableContextMenu();
     _appEventHandler();
   }
 
@@ -42,6 +46,8 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
   void dispose() {
     extensionEventSubscription.cancel();
     vmService.dispose();
+    // Re-enable the browser's default context menu.
+    BrowserContextMenu.enableContextMenu();
     super.dispose();
   }
 
@@ -49,6 +55,7 @@ class _DebugPanelPageState extends State<DebugPanelPage> {
   Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (context) => variableDebugData,
         child: DebugVariablesPanel(
+          listGradientColor: Theme.of(context).scaffoldBackgroundColor,
           onEvent: (name, params) {
             if (kDebugMode) {
               debugPrint('$name, $params');
