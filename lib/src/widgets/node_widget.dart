@@ -41,6 +41,80 @@ class _NodeWidgetState extends State<NodeWidget> {
   void logEvent(String name, [Map<String, dynamic>? params]) =>
       widget.controller.onEvent((name: name, params: params));
 
+  Future<dynamic> showRightClickOptions(
+    BuildContext context,
+    Offset position,
+    link,
+    searchReference,
+  ) =>
+      showDialog(
+        barrierDismissible: true,
+        barrierColor: Colors.transparent,
+        context: context,
+        builder: (context) => Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(8.0),
+          elevation: 5.0,
+          child: InkWell(
+            onTap: () => Navigator.pop(context),
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            mouseCursor: SystemMouseCursors.basic,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: position.dy,
+                  left: position.dx,
+                  child: Container(
+                    width: 180,
+                    decoration: BoxDecoration(
+                      color: context.theme.navPanelColor,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: context.theme.panelBorderColor),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(7.0),
+                      child: Column(
+                        children: [
+                          ModalMenuItem(
+                            text: 'See definition',
+                            color: context.theme.primaryText,
+                            iconData: Icons.open_in_new_rounded,
+                            onTap: () {
+                              openUrl(link!);
+                              logEvent('debug-panel-right-click', {
+                                'option': 'link',
+                                'link': link,
+                              });
+                              Navigator.pop(context);
+                            },
+                          ),
+                          if (searchReference != null)
+                            ModalMenuItem(
+                              text: 'See all instances',
+                              color: context.theme.primaryText,
+                              iconData: Icons.open_in_new_rounded,
+                              onTap: () {
+                                final searchRefLink = '$link&$searchReference';
+                                openUrl(searchRefLink);
+                                logEvent('debug-panel-right-click', {
+                                  'option': 'search-reference',
+                                  'link': searchRefLink,
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     final style = widget.style;
@@ -67,82 +141,12 @@ class _NodeWidgetState extends State<NodeWidget> {
               // or search reference.
               onSecondaryTapUp: link == null
                   ? null
-                  : (details) async {
-                      final position = details.globalPosition;
-                      await showDialog(
-                        barrierDismissible: true,
-                        barrierColor: Colors.transparent,
-                        context: context,
-                        builder: (context) => Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8.0),
-                          elevation: 5.0,
-                          child: InkWell(
-                            onTap: () => Navigator.pop(context),
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            mouseCursor: SystemMouseCursors.basic,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: position.dy,
-                                  left: position.dx,
-                                  child: Container(
-                                    width: 180,
-                                    decoration: BoxDecoration(
-                                      color: context.theme.navPanelColor,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      border: Border.all(
-                                          color:
-                                              context.theme.panelBorderColor),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(7.0),
-                                      child: Column(
-                                        children: [
-                                          ModalMenuItem(
-                                            text: 'See definition',
-                                            color: context.theme.primaryText,
-                                            iconData: Icons.open_in_new_rounded,
-                                            onTap: () {
-                                              openUrl(link!);
-                                              logEvent(
-                                                  'debug-panel-right-click', {
-                                                'option': 'link',
-                                                'link': link,
-                                              });
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          if (searchReference != null)
-                                            ModalMenuItem(
-                                              text: 'See all instances',
-                                              color: context.theme.primaryText,
-                                              iconData:
-                                                  Icons.open_in_new_rounded,
-                                              onTap: () {
-                                                final searchRefLink =
-                                                    '$link&$searchReference';
-                                                openUrl(searchRefLink);
-                                                logEvent(
-                                                    'debug-panel-right-click', {
-                                                  'option': 'search-reference',
-                                                  'link': searchRefLink,
-                                                });
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                  : (details) => showRightClickOptions(
+                        context,
+                        details.globalPosition,
+                        link,
+                        searchReference,
+                      ),
               onTap: _isLeaf
                   ? null
                   : () => setState(

@@ -106,6 +106,7 @@ class NarrowModalFieldContent extends StatelessWidget {
     // final builderLink = isAppRoute
     //     ? '$appBaseUrl${ProjectPage.routeFromId(variableDebugData.projectId)}?tab=uiBuilder&page=${dataField.value.substring(1).split('?').first}'
     //     : null;
+    final hasLink = dataField.link.isNotEmpty;
     final isList = dataField.whichData() == DebugDataField_Data.listValue;
     final isDataStruct = dataField.type == DebugDataField_ParamType.DATA_STRUCT;
     final isDocumentOrRef = [
@@ -203,9 +204,11 @@ class NarrowModalFieldContent extends StatelessWidget {
               children: [
                 Icon(
                   iconData,
-                  color: isValueNull && !isNullable
-                      ? context.theme.messageRed
-                      : context.theme.secondaryText,
+                  color: hasLink
+                      ? context.theme.highlight
+                      : isValueNull && !isNullable
+                          ? context.theme.messageRed
+                          : context.theme.secondaryText,
                   size: 16,
                 ),
                 if (isNullable)
@@ -217,9 +220,11 @@ class NarrowModalFieldContent extends StatelessWidget {
                       radius: 5,
                       child: Icon(
                         Icons.question_mark_rounded,
-                        color: isValueNull && !isNullable
-                            ? context.theme.messageRed
-                            : context.theme.secondaryText,
+                        color: hasLink
+                            ? context.theme.highlight
+                            : isValueNull && !isNullable
+                                ? context.theme.messageRed
+                                : context.theme.secondaryText,
                         size: 9,
                       ),
                     ),
@@ -236,9 +241,11 @@ class NarrowModalFieldContent extends StatelessWidget {
               style: productSans(
                 context,
                 size: 14,
-                color: isValueNull && !isNullable
-                    ? context.theme.messageRed
-                    : context.theme.secondaryText,
+                color: hasLink
+                    ? context.theme.highlight
+                    : isValueNull && !isNullable
+                        ? context.theme.messageRed
+                        : context.theme.secondaryText,
               ),
               overflow: TextOverflow.ellipsis,
             ),

@@ -48,6 +48,7 @@ abstract class AppThemeModel with FFTheme {
   Color get hoverColor;
   Color get messageRed;
   Color get greenAccent;
+  Color get highlight;
   Color get panelBorderColor;
   Color get panelTextColor1;
   Color get panelColor;
@@ -186,6 +187,9 @@ class AppLightModeTheme extends AppThemeModel {
   Color get greenAccent => const Color(0xFF31BFAE);
 
   @override
+  Color get highlight => primary;
+
+  @override
   Color get panelBorderColor => kGrey250;
 
   @override
@@ -311,6 +315,9 @@ class AppDarkModeTheme extends AppThemeModel {
 
   @override
   Color get greenAccent => const Color(0xFF31BFAE);
+
+  @override
+  Color get highlight => greenAccent;
 
   @override
   Color get panelBorderColor => const Color(0xFF323B45);
