@@ -32,8 +32,8 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: 10.6.0
-  devtools_extensions: 0.2.1
-  devtools_app_shared: 0.2.1
+  devtools_extensions: 0.2.2
+  devtools_app_shared: 0.2.2
   debug_panel_proto:
     git:
       url: https://github.com/FlutterFlow/debug_panel_proto.git
@@ -50,7 +50,7 @@ dependencies:
   recase: 4.1.0
   text_search: 1.0.1
   url_launcher: 6.2.5
-  vm_service: 14.2.1
+  vm_service: 14.2.4
   webviewx_plus: 0.5.0
 
 dependency_overrides:
