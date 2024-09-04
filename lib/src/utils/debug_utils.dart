@@ -16,6 +16,7 @@ import 'package:intl/intl.dart';
 ///
 /// - [appState]: Represents the app state debug section.
 /// - [appConstant]: Represents the app constant debug section.
+/// - [environmentValue]: Represents the environment value debug section.
 /// - [globalProperty]: Represents the global property debug section.
 /// - [authenticatedUser]: Represents the authenticated user debug section.
 /// - [widgetClass]: Represents the widget class debug section.
@@ -26,6 +27,7 @@ enum DebugSectionType {
   componentParameters,
   appState,
   appConstants,
+  environmentValues,
   globalProperties,
   authenticatedUser,
   widgetState,
@@ -158,6 +160,10 @@ void deserializeDebugEvent(String rawEventData) {
         variableDebugData.appConstant = AppConstantDebugData()
           ..fromSerializedBufferString(eventData);
         break;
+      case 'environmentValue':
+        variableDebugData.environmentValue = EnvironmentValueDebugData()
+          ..fromSerializedBufferString(eventData);
+        break;
       case 'globalProperty':
         variableDebugData.globalProperty = GlobalPropertyDebugData()
           ..fromSerializedBufferString(eventData);
@@ -190,6 +196,7 @@ class VariableDebugData extends ChangeNotifier {
   GlobalPropertyDebugData? _globalProperty;
   AppStateDebugData? _appState;
   AppConstantDebugData? _appConstant;
+  EnvironmentValueDebugData? _environmentValue;
   AuthenticatedUserDebugData? _authenticatedUser;
   WidgetClassDebugData? _widgetClass;
   String? projectId;
@@ -212,6 +219,12 @@ class VariableDebugData extends ChangeNotifier {
     notifyListeners();
   }
 
+  EnvironmentValueDebugData? get environmentValue => _environmentValue;
+  set environmentValue(EnvironmentValueDebugData? value) {
+    _environmentValue = value;
+    notifyListeners();
+  }
+
   AuthenticatedUserDebugData? get authenticatedUser => _authenticatedUser;
   set authenticatedUser(AuthenticatedUserDebugData? value) {
     _authenticatedUser = value;
@@ -229,6 +242,7 @@ class VariableDebugData extends ChangeNotifier {
     _globalProperty = null;
     _appState = null;
     _appConstant = null;
+    _environmentValue = null;
     _authenticatedUser = null;
     _widgetClass = null;
     notifyListeners();
@@ -392,6 +406,16 @@ class VariableDebugData extends ChangeNotifier {
           context,
           controller,
           parentSectionType: DebugSectionType.authenticatedUser,
+        ),
+      ),
+      narrowModalSection(
+        context,
+        sectionTitle: 'Environment Values',
+        childrenNodes: _treeNodeFromJsonMap(
+          environmentValue?.values,
+          context,
+          controller,
+          parentSectionType: DebugSectionType.environmentValues,
         ),
       ),
     ];
