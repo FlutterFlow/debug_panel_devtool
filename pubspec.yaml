@@ -31,7 +31,7 @@ dependencies:
   auto_size_text: 3.0.0
   flutter:
     sdk: flutter
-  font_awesome_flutter: 10.6.0
+  font_awesome_flutter: 10.7.0
   devtools_extensions: 0.2.1
   devtools_app_shared: 0.2.1
   debug_panel_proto:
