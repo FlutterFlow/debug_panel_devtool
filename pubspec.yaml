@@ -49,7 +49,7 @@ dependencies:
   provider: 6.1.2
   recase: 4.1.0
   text_search: 1.0.1
-  url_launcher: 6.2.5
+  url_launcher: 6.3.0
   vm_service: 14.2.1
   webviewx_plus: 0.5.0
 
