@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "fedb6f81b19ade10cd74b61f17b41895",
-"version.json": "64596a97a08c45430133f751570e7264",
+const RESOURCES = {"flutter_bootstrap.js": "7fe28a159f43892742d448bc2111f35d",
+"version.json": "17902c239a077fde0a41f4a2da84fb3e",
 "index.html": "aa6f466ba4f6154a3e7ad6465ec3796b",
 "/": "aa6f466ba4f6154a3e7ad6465ec3796b",
 "main.dart.js": "75f50268cacd8c01dbe6b114345cee18",
@@ -19,9 +19,9 @@ const RESOURCES = {"flutter_bootstrap.js": "fedb6f81b19ade10cd74b61f17b41895",
 "assets/NOTICES": "531823d11a6723ff9b0c92ea2e15f876",
 "assets/FontManifest.json": "4ee0c175f808288afd964ac8e4f01899",
 "assets/AssetManifest.bin.json": "48b90f4d210cc532503ae3ce0e69153b",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "b72c617acdf2227c8b1413215f620711",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "a5d7457fda15b7622c14f432ba63039a",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "f25e8e701660fb45e2a81ff3f43c6d5c",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "04f83c01dded195a11d21c2edf643455",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "f3307f62ddff94d2cd8b103daf8d1b0f",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "17ee8e30dde24e349e70ffcdc0073fb0",
 "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Medium.ttf": "7cfbd4284ec01b7ace2f8edb5cddae84",
 "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Regular.ttf": "b4618f1f7f4cee0ac09873fcc5a966f9",
 "assets/packages/devtools_app_shared/fonts/Roboto_Mono/RobotoMono-Light.ttf": "9d1044ccdbba0efa9a2bfc719a446702",
