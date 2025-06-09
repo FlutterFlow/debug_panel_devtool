@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutterflow_debug_panel/src/widgets/flutter_flow_hover.dart';
 import 'package:flutterflow_debug_panel/src/themes/flutter_flow_default_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 typedef ModalButtonBuilder = Widget Function(
   Function({required String eventName}) toggleMenuCallback,
@@ -140,7 +140,7 @@ class ModalMenuButtonState extends State<ModalMenuButton> {
   }
 
   Widget buildMenu(BuildContext context) {
-    Widget menu = WebViewAware(
+    Widget menu = PointerInterceptor(
       child: widget.menuBuilder(removeMenu),
     );
     if (widget.wrapInCard) {
@@ -150,7 +150,7 @@ class ModalMenuButtonState extends State<ModalMenuButton> {
         elevation: 5.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         clipBehavior: Clip.antiAlias,
-        child: WebViewAware(
+        child: PointerInterceptor(
           child: widget.menuBuilder(removeMenu),
         ),
       );
