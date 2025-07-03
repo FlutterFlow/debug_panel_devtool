@@ -16,6 +16,7 @@ class DebugTreeView extends StatelessWidget {
     required this.nodeBuilder,
     this.listPadding,
     this.listGradientColor,
+    this.scrollController,
   }) : nodes = copyTreeNodes(nodes);
 
   /// List of root level tree nodes.
@@ -34,6 +35,9 @@ class DebugTreeView extends StatelessWidget {
   /// Color for the gradient background of the list view.
   final Color? listGradientColor;
 
+  /// Scroll controller for the list view.
+  final ScrollController? scrollController;
+
   @override
   Widget build(BuildContext context) {
     final flattenedTreeNode = FlattenTreeNode.getFlattenedTree(
@@ -41,6 +45,7 @@ class DebugTreeView extends StatelessWidget {
       treeController,
     );
     return FlutterFlowGradientScrollView(
+      scrollController: scrollController,
       gradientHeight: 100,
       gradientColor: listGradientColor,
       child: (controller) => ListView.builder(
