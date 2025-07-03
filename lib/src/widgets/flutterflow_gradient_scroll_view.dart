@@ -14,11 +14,14 @@ class FlutterFlowGradientScrollView extends StatefulWidget {
   /// it will use the panel color.
   ///
   /// * [gradientHeight] parameter is the height of the gradient. Default is 50.0.
+  ///
+  /// * [scrollController] parameter is the scroll controller for the scroll view.
   const FlutterFlowGradientScrollView({
     super.key,
     required this.child,
     this.gradientColor,
     this.gradientHeight = 50.0,
+    this.scrollController,
   });
 
   /// The child widget that will be scrolled.
@@ -30,6 +33,9 @@ class FlutterFlowGradientScrollView extends StatefulWidget {
   /// The height of the gradient. Default is 50.0.
   final double gradientHeight;
 
+  /// The scroll controller for the scroll view.
+  final ScrollController? scrollController;
+
   @override
   State<FlutterFlowGradientScrollView> createState() =>
       _FlutterFlowGradientScrollViewState();
@@ -40,7 +46,14 @@ class _FlutterFlowGradientScrollViewState
   var _showStartGradient = false;
   var _showEndGradient = false;
   double? _maxScrollExtent;
-  final _scrollController = ScrollController();
+
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = widget.scrollController ?? ScrollController();
+  }
 
   @override
   Widget build(BuildContext context) {
