@@ -43,7 +43,7 @@ dependencies:
     git:
       url: https://github.com/FlutterFlow/flutter_searchable_treeview.git
       ref: v2.2.0
-  google_fonts: 6.1.0
+  google_fonts: ^6.3.3
   intl: ^0.20.0
   just_the_tooltip: 0.0.12
   provider: ^6.1.2
