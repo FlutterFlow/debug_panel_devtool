@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.7
+version: 0.2.8
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -37,7 +37,7 @@ dependencies:
   debug_panel_proto:
     git:
       url: https://github.com/FlutterFlow/debug_panel_proto.git
-      ref: v0.1.4
+      ref: v0.1.5
   easy_debounce: 2.0.1
   flutterflow_tree_view:
     git:

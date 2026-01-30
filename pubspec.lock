@@ -93,11 +93,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.1.4"
-      resolved-ref: bee37587820b37ff59af7f6da61a5ed38a73a4cd
+      ref: "v0.1.5"
+      resolved-ref: c0838697f19e5f3e0cc41f9ee0ce212d3d139fb8
       url: "https://github.com/FlutterFlow/debug_panel_proto.git"
     source: git
-    version: "0.1.4"
+    version: "0.1.5"
   devtools_app_shared:
     dependency: "direct main"
     description:
@@ -462,10 +462,10 @@ packages:
     dependency: transitive
     description:
       name: protobuf
-      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
+      sha256: "75ec242d22e950bdcc79ee38dd520ce4ee0bc491d7fadc4ea47694604d22bf06"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "6.0.0"
   provider:
     dependency: "direct main"
     description:
